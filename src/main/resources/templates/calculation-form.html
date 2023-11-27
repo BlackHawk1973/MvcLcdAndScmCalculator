@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Расчёт НОД и НОК</title>
+  <!-- подключение стилей bootstrap -->
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container text-center">
+  <h1 style="padding-top: 30px">Онлайн калькулятор НОД и НОК</h1>
+
+  <div style="padding-top: 30px">
+    Найдите <b>НОД и НОК двух целых чисел:</b><br>введите числа в форме ниже и нажмите кнопку "Найти"
+  </div><br>
+  <div>
+    <!-- Форма ввода чисел для расчета НОД и НОК -->
+    <form class="row g-3" th:action="@{/calculation-form}" method="post" th:object="${initialData}">
+
+      <!-- поля формы -->
+      <div class="col-md-4">
+        <label class="col-sm-10 col-form-label" for="number1">Первое число:</label>
+        <div class="col-sm-12">
+          <input class="form-control" type="number" step="1" id="number1" th:field="*{number1}" required/>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label class="col-sm-10 col-form-label" for="number2">Второе число:</label>
+        <div class="col-sm-12">
+          <input class="form-control" type="number" step="1" id="number2" th:field="*{number2}" required/>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <label class="col-sm-2 col-form-label" for="calc">&nbsp;</label>
+        <div class="col-sm-12">
+          <button id="calc" class="form-control btn btn-primary">Найти</button>
+        </div>
+
+      </div>
+    </form>
+
+    <!-- Вывод решения -->
+    <div th:if="${calcResults != null}" style="padding-top: 30px">
+      <p>Для двух чисел: [[${initialData.getNumber1}]] и [[${initialData.getNumber2}]]</p>
+      <p>Получено решение: [[${calcResults}]]</p>
+    </div>
+
+    <!-- Вывод сообщения об ошибке -->
+    <div th:if="${errorMessage != null}" style="padding-top: 30px">
+      <br><p>Возникла ошибка: [[${errorMessage}]]</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
